@@ -1,4 +1,4 @@
-Deploy to AWS using Jenkins 
+Deploy to AWS using Jenkins pipeline
 
 ## Summary of Task ##
 
@@ -49,33 +49,51 @@ The flow is as follows:
 Here is where some key Ansible-related files are located:
 
 ```
-ansible-tomcat-mysql
-├── AddingKeys
-│   ├── group_vars
-│   │   └── all
-│   ├── site.yml
-│   └── users
-│       ├── public_keys
-│       │   └── k.pub
-│       └── tasks
-│           └── main.yml
-├── aws-private.pem
-├── CreatingEC2
-│   ├── create
+jenkins-pipeline-aws
+├── ec2.ini
+├── ec2-lauch.yml
+├── ec2.py
+├── README.md
+├── roles
+│   ├── common
 │   │   └── tasks
 │   │       └── main.yml
-│   ├── group_vars
-│   │   └── all
-│   ├── mysql
+│   ├── ec2
+│   │   ├── tasks
+│   │   │   └── main.yml
+│   │   └── vars
+│   │       ├── haproxy.yml
+│   │       ├── main.yml
+│   │       └── tomcat.yml
+│   ├── haproxy
 │   │   ├── files
-│   │   │   ├── sakila-data.sql
-│   │   │   └── sakila-schema.sql
+│   │   │   └── haproxy_default
 │   │   ├── handlers
 │   │   │   └── main.yml
-│   │   └── tasks
+│   │   ├── tasks
+│   │   │   └── main.yml
+│   │   ├── templates
+│   │   │   └── haproxy.cfg.j2
+│   │   └── vars
 │   │       └── main.yml
-│   ├── site.retry
-│   ├── site.yml
+│   ├── nagios
+│   │   ├── files
+│   │   │   └── nagios.cfg
+│   │   ├── handlers
+│   │   │   └── main.yml
+│   │   ├── tasks
+│   │   │   └── main.yml
+│   │   ├── templates
+│   │   │   └── nrpe.cfg.j2
+│   │   └── vars
+│   │       └── main.yml
+│   ├── nagios-slave
+│   │   ├── handlers
+│   │   │   └── main.yml
+│   │   ├── tasks
+│   │   │   └── main.yml
+│   │   └── templates
+│   │       └── nrpe.cfg.j2
 │   └── tomcat
 │       ├── handlers
 │       │   └── main.yml
@@ -86,19 +104,8 @@ ansible-tomcat-mysql
 │       │   └── tomcat-users.xml
 │       └── vars
 │           └── main.yml
-├── ELB
-│   ├── group_vars
-│   │   └── all
-│   ├── site.yml
-│   └── web
-│       ├── handlers
-│       │   └── main.yml
-│       ├── static_files
-│       │   └── index.html
-│       └── tasks
-│           └── main.yml
-├── hosts
-└── README.md
+└── site.yml
+
 
 ```
 
