@@ -1,0 +1,4 @@
+.DS_Store
+*.swp
+secret_iam.env
+ec2-lauch.retry

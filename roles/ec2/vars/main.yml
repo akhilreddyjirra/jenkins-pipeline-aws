@@ -1,0 +1,13 @@
+---
+
+keypair: testing-staging-key
+region: us-east-2
+instance_type: t2.micro
+image: ami-916f59f4 # Ubuntu Server 14.04 LTS (HVM), SSD Volume Type
+tag_ec2_current: launched
+subnets: 
+- subnet-97ed13da
+vpc_id: vpc-128b1c7b
+#ami: ami-8d756fe4
+
+

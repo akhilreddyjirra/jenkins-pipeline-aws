@@ -1,0 +1,32 @@
+---
+
+# This playbook deploys as an example two Tomcat instances on AWS.  
+# it's just an example
+# Configure and deploy tomcat
+- hosts: tomcat-server
+  vars_files: 
+    - roles/tomcat/vars/main.yml
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  gather_facts: false
+  pre_tasks:
+    - name: Install Python 2.x
+      raw: test -e /usr/bin/python || (apt update && apt install -y python-simplejson)
+      register: test
+      changed_when: test.stdout
+  roles:
+    - common
+    - tomcat
+#    - nagios-slave
+    
+# Configure and deploy HAProxy
+#- hosts: haproxy-server
+#  vars_files: 
+#    - roles/tomcat/vars/main.yml
+#  remote_user: ubuntu
+#  sudo: yes
+#  roles:
+#    - common
+#    - haproxy
+#    - nagios

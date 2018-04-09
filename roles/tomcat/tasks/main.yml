@@ -1,0 +1,17 @@
+---
+- name: Install Tomcat8
+  apt: name=tomcat8 update_cache=yes
+
+- name: Install Tomcat8 Admin
+  apt: name=tomcat8-admin update_cache=yes
+
+- name: Configure Tomcat users
+  template: src=tomcat-users.xml dest=/etc/tomcat8/
+  notify: restart tomcat8
+
+- name: Copy custom index file to default webapp
+  template: src=index.html dest=/var/lib/tomcat8/webapps/ROOT/
+
+- name: Change Ownership of Tomcat home folder
+  shell: /bin/chown tomcat8:tomcat8 /usr/share/tomcat8 /var/lib/tomcat8 -R
+
